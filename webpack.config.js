@@ -9,7 +9,7 @@ module.exports = {
     output: {
         path: path.join(__dirname, './www'),
         filename: 'bundle.js'
-                //publicPath: "http://localhost:3000/"
+            //publicPath: "http://localhost:3000/"
     },
     plugins: [
         // new webpack.HotModuleReplacementPlugin(),
@@ -20,9 +20,10 @@ module.exports = {
     },
     module: {
         loaders: [{
-                test: /\.jsx?$/,
-                loaders: ['react-hot', 'babel?presets[]=es2015&presets[]=react'],
-                include: path.join(__dirname, 'src')
-            }]
+            test: /\.jsx?$/,
+            loaders: ['react-hot', 'babel?presets[]=es2015&presets[]=react', 'exports-loader!babel-loader'],
+            include: path.join(__dirname, 'src'),
+            exclude: /node_modules/
+        }]
     }
 };
