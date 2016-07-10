@@ -21,7 +21,7 @@ module.exports = {
     module: {
         loaders: [{
             test: /\.jsx?$/,
-            loaders: ['react-hot', 'babel?presets[]=es2015&presets[]=react', 'exports-loader!babel-loader'],
+            loaders: ['react-hot', 'babel?presets[]=es2015&presets[]=react'],
             include: path.join(__dirname, 'src'),
             exclude: /node_modules/
         }]
