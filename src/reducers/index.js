@@ -14,22 +14,28 @@ const initialState = {
         token: ''
     },
     title: 'some app title',
-    displayContent: {
-        contentType: DisplayContentType.FORM,
-        form: {
-            fields: [{
-                id: 'user',
-                type: FieldType.TEXT
-            }, {
-                id: 'pass',
-                type: FieldType.PASS
-            }],
-            actions: [{
-                action: 'logIn',
-                args: ['user', 'pass']
-            }]
-        }
-    },
+    displayContent: [{
+        type: DisplayContentType.FORM,
+        items: [{
+            id: 'user',
+            type: FieldType.TEXT,
+            label: 'User',
+            icon: '',
+            validation: '',
+            error: ''
+        }, {
+            id: 'pass',
+            type: FieldType.PASS,
+            label: 'Password',
+            icon: '',
+            validation: '',
+            error: ''
+        }],
+        actions: [{
+            action: 'logIn',
+            args: ['user', 'pass']
+        }]
+    }],
     appLinks: [{
         id: 1,
         route: 'command',

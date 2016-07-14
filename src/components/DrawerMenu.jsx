@@ -4,7 +4,7 @@ import {Navigation,Drawer} from 'react-mdl';
 const DrawerMenu = ({drawerLinks}) => (
     <Drawer title="Main Menu">
         <Navigation>
-            {drawerLinks.map( link => <a key={link.id} href={link.route} className='mdl-navigation__link'>{link.text}</a>)}
+            {drawerLinks.map(link => <a key={link.id} href={link.route} className='mdl-navigation__link'>{link.text}</a>)}
         </Navigation>
     </Drawer>
 )
