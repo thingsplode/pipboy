@@ -1,0 +1,69 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "/jobs",
+    "headers": {
+      "Accept": {
+        "matches": "application/json"
+      },
+      "X-Auth-Token": {
+        "matches": ".*"
+      }
+    }
+  },
+  "response": {
+    "status": 200,
+    "jsonBody": {
+      "return": [
+        {
+          "20160716134203650234": {
+            "Function": "status.diskusage",
+            "Target": "*",
+            "Target-type": "glob",
+            "Arguments": [],
+            "StartTime": "2016, Jul 16 13:42:03.650234",
+            "User": "rundeck"
+          },
+          "20160716133747819529": {
+            "Function": "saltutil.find_job",
+            "Target": "*",
+            "Target-type": "glob",
+            "Arguments": [
+              "20160716133742760737"
+            ],
+            "StartTime": "2016, Jul 16 13:37:47.819529",
+            "User": "root"
+          },
+          "20160716134416766639": {
+            "Function": "status.diskusage",
+            "Target": "*",
+            "Target-type": "glob",
+            "Arguments": [],
+            "StartTime": "2016, Jul 16 13:44:16.766639",
+            "User": "rundeck"
+          },
+          "20160716134514058167": {
+            "Function": "status.diskusage",
+            "Target": "*",
+            "Target-type": "glob",
+            "Arguments": [],
+            "StartTime": "2016, Jul 16 13:45:14.058167",
+            "User": "rundeck"
+          },
+          "20160716133742760737": {
+            "Function": "grains.items",
+            "Target": "*",
+            "Target-type": "glob",
+            "Arguments": [],
+            "StartTime": "2016, Jul 16 13:37:42.760737",
+            "User": "rundeck"
+          }
+        }
+      ]
+    },
+    "headers": {
+      "Content-Type": "text/plain"
+    },
+    "fixedDelayMilliseconds": 200
+  }
+}

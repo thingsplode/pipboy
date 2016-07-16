@@ -1,14 +1,22 @@
 import React, {PropTypes} from 'react'
 import {Layout, Header, Content, Textfield} from 'react-mdl';
-import {DisplayContentType, FieldType} from '../actions'
+import {DisplayContentType, FieldType, FormEnclosureType} from '../actions'
 import Form from './Form'
 
-const ContentRenderer = ({content}) => {
+const ContentRenderer = ({content, dispatch}) => {
     let contentChain = []
     content.map(contentElement => {
         switch (contentElement.type) {
             case DisplayContentType.FORM:
-                contentChain.push(<Form key={contentChain.length} fields={contentElement.items}/>)
+                contentChain.push(
+                    <Form
+                        key={contentChain.length}
+                        enclosure={contentElement.enclosure}
+                        fields={contentElement.items}
+                        actions={contentElement.actions}
+                        dispatch = {dispatch}
+                    />
+                )
                 break;
             case DisplayContentType.LIST:
                 contentChain.push(<div>LIST</div>)
@@ -18,7 +26,9 @@ const ContentRenderer = ({content}) => {
                 break;
         }
     })
-    return (<span>{contentChain}</span>)
+    return (<span>
+            {contentChain}
+        </span>)
 }
 
 ContentRenderer.propTypes = {

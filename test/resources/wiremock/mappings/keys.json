@@ -1,0 +1,39 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "/keys",
+    "headers": {
+      "Accept": {
+        "matches": "application/json"
+      },
+      "X-Auth-Token": {
+        "matches": ".*"
+      }
+    }
+  },
+  "response": {
+    "status": 200,
+    "jsonBody": {
+      "return": {
+        "minions_pre": [],
+        "minions_rejected": [],
+        "minions_denied": [],
+        "local": [
+          "master.pem",
+          "master.pub"
+        ],
+        "minions": [
+          "opsmaster.thingsplode.com",
+          "TEST_MINION_0001",
+          "TEST_MINION_0001",
+          "TEST_MINION_0001",
+          "TEST_MINION_0001"
+        ]
+      }
+    },
+    "headers": {
+      "Content-Type": "text/plain"
+    },
+    "fixedDelayMilliseconds": 200
+  }
+}

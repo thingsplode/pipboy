@@ -13,23 +13,35 @@ export const DisplayContentType = {
     MENU_LIST: 'MENU_LIST'
 }
 
+export const DisplayContentStatus = {
+    LOADED: 'LOADED',
+    POSTED: 'POSTED'
+}
+
+export const FormEnclosureType = {
+    CARD: 'CARD',
+    TABLE: 'TABLE',
+    NONE: 'NONE'
+}
+
 export const FieldType = {
-    TEXT: 'TEXT',
-    PASS: 'PASS',
-    DATE: 'DATE'
+    TEXT: 'text',
+    PASS: 'password',
+    DATE: 'date'
 }
 
-export function displayForm(form) {
-    return {
-        type: DISPLAY_FORM,
-        form: form
-    }
-}
-
-export function logIn(usr, pass) {
-    return {
-        type: LOG_ME_IN,
-        user: user,
-        password: pass
+export const Actions = {
+    displayForm(form) {
+        return {
+            type: DISPLAY_FORM,
+            form: form
+        }
+    },
+    logIn(user, pass) {
+        return {
+            type: LOG_ME_IN,
+            user: user,
+            password: pass
+        }
     }
 }

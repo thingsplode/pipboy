@@ -1,0 +1,26 @@
+{
+  "request": {
+    "method": "POST",
+    "url": "/",
+    "headers":{
+      "Accept": {
+        "matches":"application/json"
+      },
+      "X-Auth-Token": {
+        "matches": ".*"
+      }
+    },
+    "bodyPatterns" : [{
+      "matches" : "client=local&tgt=*&fun=test.ping"
+    }]
+
+  },
+  "response": {
+    "status": 200,
+    "jsonBody": {"return": [{"minion_test_0001": true, "opsmaster.thingsplode.com": true}]},
+    "headers": {
+      "Content-Type": "text/plain"
+    },
+    "fixedDelayMilliseconds": 200
+  }
+}

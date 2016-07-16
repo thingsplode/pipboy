@@ -5,6 +5,10 @@ const mapStateToProps = (state) => {
     return {content: state.displayContent}
 }
 
-const ContentRendererContainer = connect(mapStateToProps)(ContentRenderer)
+const mapDispatchToProps = (dispatch) => {
+    return {dispatch: dispatch}
+}
+
+const ContentRendererContainer = connect(mapStateToProps, mapDispatchToProps)(ContentRenderer)
 
 export default ContentRendererContainer

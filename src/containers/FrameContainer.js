@@ -5,7 +5,8 @@ import Frame from '../components/Frame'
 
 const mapStateToProps = (state) => {
     return {
-        title: state.title
+        title: state.title,
+        frame: state.frame
     }
 }
 

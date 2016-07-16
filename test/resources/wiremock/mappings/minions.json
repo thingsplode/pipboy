@@ -1,0 +1,296 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "/minions",
+    "headers": {
+      "Accept": {
+        "matches": "application/json"
+      }
+    }
+  },
+  "response": {
+    "status": 200,
+    "jsonBody": {
+      "return": [
+        {
+          "simuatm": {
+            "biosversion": "Revision: 1.221",
+            "kernel": "Windows",
+            "domain": "",
+            "zmqversion": "4.1.2",
+            "kernelrelease": "6.1.7601",
+            "motherboard": {
+              "serialnumber": null,
+              "productname": null
+            },
+            "pythonpath": [
+              "c:\\salt\\bin\\lib\\site-packages\\git\\ext\\gitdb",
+              "c:\\salt\\bin\\lib\\site-packages\\git\\ext\\gitdb",
+              "c:\\salt\\bin\\Scripts",
+              "c:\\salt\\bin\\lib\\site-packages\\pyyaml-3.11-py2.7-win32.egg",
+              "c:\\salt\\bin\\python27.zip",
+              "c:\\salt\\bin\\DLLs",
+              "c:\\salt\\bin\\lib",
+              "c:\\salt\\bin\\lib\\plat-win",
+              "c:\\salt\\bin\\lib\\lib-tk",
+              "c:\\salt\\bin",
+              "c:\\salt\\bin\\lib\\site-packages",
+              "c:\\salt\\bin\\lib\\site-packages\\win32",
+              "c:\\salt\\bin\\lib\\site-packages\\win32\\lib",
+              "c:\\salt\\bin\\lib\\site-packages\\Pythonwin",
+              "c:\\salt\\bin\\lib\\site-packages\\gitdb\\ext\\smmap",
+              "c:\\salt\\bin\\lib\\site-packages\\gitdb\\ext\\smmap"
+            ],
+            "serialnumber": "a34cd1a2-4154-2b21-396a-9b84701b7ee8",
+            "pid": 5572,
+            "ip_interfaces": {
+              "Citrix PV Ethernet Adapter #0": [
+                "192.168.26.155"
+              ]
+            },
+            "groupname": "",
+            "fqdn_ip6": [],
+            "mem_total": 2043,
+            "saltversioninfo": [
+              2016,
+              3,
+              0,
+              0
+            ],
+            "timezone": "(UTC+02:00) Athens, Bucharest",
+            "id": "simuatm",
+            "osrelease": "7",
+            "ps": "tasklist.exe",
+            "server_id": 1431639593,
+            "ip6_interfaces": {
+              "Citrix PV Ethernet Adapter #0": []
+            },
+            "num_cpus": 1,
+            "hwaddr_interfaces": {
+              "Citrix PV Ethernet Adapter #0": "0E:1A:05:15:D7:A9"
+            },
+            "ip4_interfaces": {
+              "Citrix PV Ethernet Adapter #0": [
+                "192.168.26.155"
+              ]
+            },
+            "osfullname": "Microsoft Windows Embedded Standard",
+            "master": "opsmaster.thingsplode.com",
+            "ipv4": [
+              "192.168.26.155"
+            ],
+            "ipv6": [],
+            "osversion": "6.1.7601",
+            "localhost": "TEST_MINION_0001",
+            "virtual_subtype": "HVM domU",
+            "username": "TEST_MINION_0001$",
+            "fqdn_ip4": [],
+            "shell": "/bin/sh",
+            "nodename": "TEST_MINION_0001",
+            "saltversion": "2016.3.0",
+            "saltpath": "c:\\salt\\bin\\lib\\site-packages\\salt",
+            "pythonversion": [
+              2,
+              7,
+              11,
+              "final",
+              0
+            ],
+            "host": "TEST_MINION_0001",
+            "os_family": "Windows",
+            "gpus": [],
+            "manufacturer": "Xen",
+            "num_gpus": 0,
+            "virtual": "Xen",
+            "cpu_model": "x86 Family 6 Model 44 Stepping 2, GenuineIntel",
+            "fqdn": "TEST_MINION_0001",
+            "pythonexecutable": "c:\\salt\\bin\\python.exe",
+            "productname": "HVM domU",
+            "cpuarch": "x86",
+            "osmanufacturer": "Microsoft Corporation",
+            "locale_info": {
+              "detectedencoding": "cp437",
+              "defaultlanguage": "en_US",
+              "defaultencoding": "cp1252"
+            },
+            "path": "C:\\RONDO\\BIN;C:\\;c:\\regrexx\\;C:\\Windows\\system32;C:\\Windows;C:\\Windows\\System32\\Wbem;C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\;C:\\RONDO\\ETC;C:\\RONDO\\DLL;C:\\RONDO\\DLL\\DEF;C:\\RONDO\\;C:\\;C:\\RONDO\\Touch;c:\\Program Files\\KAL\\Kalignite\\DLL;;c:\\salt\\bin\\lib\\site-packages\\pywin32_system32;/bin;/sbin;/usr/bin;/usr/sbin;/usr/local/bin;c:\\salt\\bin\\lib\\site-packages\\pywin32_system32",
+            "os": "Windows",
+            "windowsdomain": "WORKGROUP"
+          },
+          "opsmaster.thingsplode.com": {
+            "biosversion": "4.1.2",
+            "kernel": "Linux",
+            "domain": "thingsplode.com",
+            "biosreleasedate": "01/17/2012",
+            "zmqversion": "4.0.4",
+            "kernelrelease": "3.13.0-66-generic",
+            "pythonpath": [
+              "/usr/bin",
+              "/usr/lib/python2.7",
+              "/usr/lib/python2.7/plat-x86_64-linux-gnu",
+              "/usr/lib/python2.7/lib-tk",
+              "/usr/lib/python2.7/lib-old",
+              "/usr/lib/python2.7/lib-dynload",
+              "/usr/local/lib/python2.7/dist-packages",
+              "/usr/lib/python2.7/dist-packages",
+              "/usr/lib/pymodules/python2.7"
+            ],
+            "serialnumber": "52f2b224-6fd2-6eb3-396f-18505ae71537",
+            "ip_interfaces": {
+              "lo": [
+                "127.0.0.1"
+              ],
+              "eth0": [
+                "192.168.26.181"
+              ]
+            },
+            "shell": "/bin/sh",
+            "mem_total": 3948,
+            "saltversioninfo": [
+              2015,
+              5,
+              3,
+              0
+            ],
+            "SSDs": [
+              "xvda"
+            ],
+            "mdadm": [],
+            "id": "opsmaster.thingsplode.com",
+            "manufacturer": "Xen",
+            "osrelease": "14.04",
+            "ps": "ps -efHww",
+            "locale_info": {
+              "detectedencoding": "ascii",
+              "defaultlanguage": null,
+              "defaultencoding": null
+            },
+            "cab_u": "14-15",
+            "lsb_distrib_description": "Ubuntu 14.04.4 LTS",
+            "ip6_interfaces": {
+              "lo": [],
+              "eth0": []
+            },
+            "num_cpus": 2,
+            "hwaddr_interfaces": {
+              "lo": "00:00:00:00:00:00",
+              "eth0": "f6:2d:a1:06:63:6d"
+            },
+            "init": "upstart",
+            "ip4_interfaces": {
+              "lo": [
+                "127.0.0.1"
+              ],
+              "eth0": [
+                "192.168.26.181"
+              ]
+            },
+            "osfullname": "Ubuntu",
+            "master": "opsmaster.thingsplode.com",
+            "virtual_subtype": "Xen PV DomU",
+            "ipv6": [],
+            "cpu_flags": [
+              "fpu",
+              "vme",
+              "de",
+              "pse",
+              "tsc",
+              "msr",
+              "pae",
+              "mce",
+              "cx8",
+              "apic",
+              "sep",
+              "mtrr",
+              "pge",
+              "mca",
+              "cmov",
+              "pat",
+              "clflush",
+              "mmx",
+              "fxsr",
+              "sse",
+              "sse2",
+              "syscall",
+              "rdtscp",
+              "lm",
+              "constant_tsc",
+              "rep_good",
+              "nopl",
+              "pni",
+              "pclmulqdq",
+              "ssse3",
+              "cx16",
+              "sse4_1",
+              "sse4_2",
+              "x2apic",
+              "popcnt",
+              "tsc_deadline_timer",
+              "aes",
+              "hypervisor",
+              "lahf_lm"
+            ],
+            "localhost": "opsmaster",
+            "ipv4": [
+              "127.0.0.1",
+              "192.168.26.181"
+            ],
+            "fqdn_ip4": [
+              "127.0.1.1"
+            ],
+            "fqdn_ip6": [],
+            "nodename": "opsmaster",
+            "saltversion": "2015.5.3",
+            "lsb_distrib_release": "14.04",
+            "server_id": 159470263,
+            "saltpath": "/usr/lib/python2.7/dist-packages/salt",
+            "host": "opsmaster",
+            "os_family": "Debian",
+            "oscodename": "trusty",
+            "deployment": "datacenter4",
+            "osfinger": "Ubuntu-14.04",
+            "cabinet": 13,
+            "pythonversion": [
+              2,
+              7,
+              6,
+              "final",
+              0
+            ],
+            "roles": [
+              "salt-master",
+              "win-repo"
+            ],
+            "num_gpus": 1,
+            "virtual": "xen",
+            "cpu_model": "Intel(R) Xeon(R) CPU           E5640  @ 2.67GHz",
+            "fqdn": "opsmaster.thingsplode.com",
+            "pythonexecutable": "/usr/bin/python",
+            "productname": "HVM domU",
+            "osarch": "amd64",
+            "cpuarch": "x86_64",
+            "lsb_distrib_codename": "trusty",
+            "osrelease_info": [
+              14,
+              4
+            ],
+            "lsb_distrib_id": "Ubuntu",
+            "gpus": [
+              {
+                "model": "GD 5446",
+                "vendor": "unknown"
+              }
+            ],
+            "path": "/usr/local/sbin:/usr/local/bin:/usr/bin:/usr/sbin:/sbin:/bin",
+            "machine_id": "bcfc810f82a88588527041f7000001e1",
+            "os": "Ubuntu"
+          }
+        }
+      ]
+    },
+    "headers": {
+      "Content-Type": "text/plain"
+    },
+    "fixedDelayMilliseconds": 200
+  }
+}

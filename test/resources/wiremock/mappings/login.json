@@ -1,0 +1,36 @@
+{
+    "request": {
+        "method": "POST",
+        "url": "/login",
+        "headers":{
+            "Accept": {
+                "matches":"application/json"
+            }
+        },
+        "bodyPatterns" : [{
+            "matches" : "username=john_doe&password=root123&eauth=pam"
+        }]
+    
+    },
+    "response": {
+        "status": 200,
+        "jsonBody": {"return": [
+                {
+                    "perms": [
+                        ".*", 
+                        "@runner", 
+                        "@wheel", "@jobs"
+                        ],
+                "start": 1468660576.593705, 
+                "token": "7bddf9d9b97da6b314207f15fd0c46381249619e", 
+                "expire": 1468703776.593706, 
+                "user": "john_doe",
+                "eauth": "pam"}
+            ]
+            },
+        "headers": {
+            "Content-Type": "text/plain"
+        },
+        "fixedDelayMilliseconds": 200
+    }
+}

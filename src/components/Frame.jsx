@@ -1,18 +1,18 @@
 import React, {PropTypes} from 'react'
 import {Layout, Header, Content, Textfield} from 'react-mdl';
-import DrawerMenuContainer from '../containers/DrawerMenuContainer'
-import AppMenuContainer from '../containers/AppMenuContainer'
+import AppMenu from './AppMenu'
+import DrawerMenu from './DrawerMenu'
 import ContentRendererContainer from '../containers/ContentRendererContainer'
 
-const Frame = ({title}) => (
-    <div className="demo-big-content">
+const Frame = ({title, frame}) => (
+    <div className="frame-content">
         <Layout>
             <Header title={title} scroll>
-                <AppMenuContainer/>
+                {typeof frame !== 'undefined' ? <AppMenu appLinks={frame.appLinks}/> : <span/>}
             </Header>
-            <DrawerMenuContainer/>
+            {typeof frame !== 'undefined' ? <DrawerMenu drawerTitle={frame.drawerTitle} drawerLinks={frame.drawerLinks}/> : <span/>}
             <Content>
-                <div className="page-content">
+                <div className="page-content" style={{float: 'none', margin: '0 auto', padding: '15px'}}>
                     <ContentRendererContainer/>
                 </div>
             </Content>

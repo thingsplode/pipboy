@@ -1,0 +1,35 @@
+{
+    "request": {
+        "method": "POST",
+        "url": "/logout",
+        "headers":{
+            "Accept": {
+                "matches":"application/json"
+            },
+            "X-Auth-Token":{
+                "matches": ".*"
+            }
+        }
+    },
+    "response": {
+        "status": 200,
+        "jsonBody": {
+            "clients": [
+                "_is_master_running", 
+                "local", 
+                "local_async", 
+                "local_batch", 
+                "runner", 
+                "runner_async", 
+                "ssh", 
+                "ssh_async", 
+                "wheel", 
+                "wheel_async"
+                ], 
+            "return": "Welcome"},
+        "headers": {
+            "Content-Type": "text/plain"
+        },
+        "fixedDelayMilliseconds": 200
+    }
+}
