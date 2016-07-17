@@ -3,9 +3,10 @@ import {
     DisplayContentType,
     DisplayContentStatus,
     FieldType,
-    DISPLAY_FORM,
-    FormEnclosureType
-} from '../actions'
+    FormEnclosureType,
+    Level
+} from '../core'
+import {AUTHENTICATED, UPDATE_CONTENT, ADD_CONTENT, REMOVE_CONTENT} from '../actions'
 
 const initialState = {
     title: 'some app title',
@@ -14,40 +15,46 @@ const initialState = {
         user: '',
         password: '',
         auth_method: '',
-        token: ''
+        token: '',
+        expire: ''
     },
     frame: {
         appLinks: [{
-            id: 1,
+            id: 'command',
             route: 'command',
             text: 'command'
         }, {
-            id: 2,
+            id: 'hup',
             route: 'hup',
             text: 'hup'
         }, {
-            id: 3,
+            id: 'three',
             route: 'three',
             text: 'three'
         }],
         drawerTitle: 'Modules',
         drawerLinks: [{
-            id: 1,
+            id: 'one',
+            icon: '',
             route: 'one',
             text: 'one'
         }, {
-            id: 2,
+            id: 'two',
+            icon: '',
             route: 'two',
             text: 'two'
         }, {
-            id: 3,
+            id: 'three',
+            icon: '',
             route: 'three',
             text: 'three'
         }]
     },
     displayContent: [{
+        id: 'login_form',
         type: DisplayContentType.FORM,
         status: DisplayContentStatus.LOADED,
+        statusMessage: {},
         enclosure: {
             title: 'Log In',
             type: FormEnclosureType.CARD,
@@ -59,7 +66,7 @@ const initialState = {
             id: 'user',
             type: FieldType.TEXT,
             label: 'User',
-            defaultValue: 'some_user',
+            defaultValue: 'john_doe',
             icon: '',
             validation: '',
             error: ''
@@ -72,7 +79,7 @@ const initialState = {
             error: ''
         }],
         actions: [{
-            actionId: 'logIn',
+            id: 'logIn',
             label: 'Log in',
             type: 'submit',
             args: ['user', 'pass']
@@ -84,10 +91,33 @@ const initialState = {
 
 export default function appState(state = initialState, action) {
     switch (action.type) {
-        case DISPLAY_FORM:
+        case UPDATE_CONTENT:
             return Object.assign({}, state, {
-                displayContentType: DisplayContentType.FORM,
-                displayContent: action.form
+                displayContent: state.displayContent.map(content => {
+                    if (content.id === action.contentId) {
+                        return Object.assign({}, content, {
+                            status: action.status,
+                            statusMessage: {
+                                level: action.level,
+                                text: action.text
+                            }
+                        })
+                    }
+                })
+            })
+        case REMOVE_CONTENT:
+            return Object.assign({}, state, {
+                displayContent: state.displayContent.filter(content => {return content.id !== action.contentId})
+            })
+        case ADD_CONTENT:
+        case AUTHENTICATED:
+            return Object.assign({}, state, {
+                session: {
+                    authenticationStatus: AuthenticationStatus.LOGGED_IN,
+                    user: action.user,
+                    token: action.token,
+                    expire: action.expire
+                }
             })
         default:
             console.warn('Unhandled action received: ' + JSON.stringify(action))

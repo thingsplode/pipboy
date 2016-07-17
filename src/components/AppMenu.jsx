@@ -8,7 +8,10 @@ const AppMenu = ({appLinks}) => (
 )
 
 AppMenu.propTypes = {
-  appLinks: PropTypes.arrayOf(PropTypes.shape({id: PropTypes.number.isRequired, route: PropTypes.string.isRequired, text: PropTypes.string.isRequired}).isRequired).isRequired
+  appLinks: PropTypes.arrayOf(PropTypes.shape({
+    id: PropTypes.string.isRequired,
+    route: PropTypes.string.isRequired,
+    text: PropTypes.string.isRequired}).isRequired).isRequired
 }
 
 export default AppMenu

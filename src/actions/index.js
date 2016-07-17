@@ -1,47 +1,76 @@
-export const LOG_ME_IN = 'LOG_ME_IN'
-export const DISPLAY_FORM = 'DISPLAY_FORM'
+import fetch from 'isomorphic-fetch'
+import {FetchUtil} from '../Util'
+import {Level, DisplayContentStatus} from '../core'
 
-export const AuthenticationStatus = {
-    NOT_AUTHENTICATED: 'NOT_AUTHENTICATED',
-    LOGGED_IN: 'LOGGED_IN'
-}
+export const UPDATE_CONTENT = 'UPDATE_CONTENT'
+export const REMOVE_CONTENT = 'REMOVE_CONTENT'
+export const ADD_CONTENT = 'ADD_CONTENT'
+export const AUTHENTICATED = 'AUTHENTICATED'
 
-export const DisplayContentType = {
-    FORM: 'FORM',
-    LIST: 'LIST',
-    DASHBOARD: 'DASHBOARD',
-    MENU_LIST: 'MENU_LIST'
-}
-
-export const DisplayContentStatus = {
-    LOADED: 'LOADED',
-    POSTED: 'POSTED'
-}
-
-export const FormEnclosureType = {
-    CARD: 'CARD',
-    TABLE: 'TABLE',
-    NONE: 'NONE'
-}
-
-export const FieldType = {
-    TEXT: 'text',
-    PASS: 'password',
-    DATE: 'date'
-}
-
-export const Actions = {
-    displayForm(form) {
+export const AuthenticationActions = {
+    authenticated(user, token, expire){
         return {
-            type: DISPLAY_FORM,
-            form: form
+            type: AUTHENTICATED,
+            user: user,
+            token: token,
+            expire: expire
+        }
+    }
+}
+
+export const ContentActions = {
+    addAppLinks(applinks){
+
+    },
+    removeAppLink(){
+
+    },
+    updateContent(contentId, contentStatus, level, text){
+        return {
+            type: UPDATE_CONTENT,
+            contentId: contentId,
+            status: contentStatus,
+            level: level,
+            text: text
         }
     },
-    logIn(user, pass) {
+    removeContent(contentId){
         return {
-            type: LOG_ME_IN,
-            user: user,
-            password: pass
+            type: REMOVE_CONTENT,
+            contentId: contentId
+        }
+    },
+    addContent(content){
+        return {
+            type: ADD_CONTENT,
+            content: content
+        }
+    }
+}
+export const Actions = {
+    logIn(user, pass, sourceId) {
+        return function (dispatch) {
+            dispatch(ContentActions.updateContent(sourceId, DisplayContentStatus.POSTED, Level.INFO, 'Loading...'))
+            return fetch('/api/login', {
+                method: 'POST',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': "application/x-www-form-urlencoded"
+                },
+                body: 'username=' + user + '&password=' + pass + '&eauth=pam'
+
+            }).then(FetchUtil.checkStatus)
+                .then(rsp => {
+                    dispatch(ContentActions.removeContent(sourceId))
+                    return rsp
+                })
+                .then(FetchUtil.parseJSON)
+                .then(json => {
+                    dispatch(AuthenticationActions.authenticated(json.return[0].user, json.return[0].token, json.return[0].expire))})
+                .catch(function (error) {
+                    console.error(error)
+                    dispatch(ContentActions.updateContent(sourceId, DisplayContentStatus.FAILED, Level.ERR, error.toString()))
+                })
         }
     }
 }

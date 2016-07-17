@@ -1,6 +1,5 @@
 import React, {PropTypes} from 'react'
-import {Layout, Header, Content, Textfield} from 'react-mdl';
-import {DisplayContentType, FieldType, FormEnclosureType} from '../actions'
+import {DisplayContentType, FieldType, FormEnclosureType} from '../core'
 import Form from './Form'
 
 const ContentRenderer = ({content, dispatch}) => {
@@ -10,11 +9,14 @@ const ContentRenderer = ({content, dispatch}) => {
             case DisplayContentType.FORM:
                 contentChain.push(
                     <Form
-                        key={contentChain.length}
+                        id={contentElement.id}
+                        key={contentElement.id}
+                        status={contentElement.status}
+                        statusMessage={contentElement.statusMessage}
                         enclosure={contentElement.enclosure}
                         fields={contentElement.items}
                         actions={contentElement.actions}
-                        dispatch = {dispatch}
+                        dispatch={dispatch}
                     />
                 )
                 break;
@@ -26,13 +28,13 @@ const ContentRenderer = ({content, dispatch}) => {
                 break;
         }
     })
-    return (<span>
+    return (<span key={contentChain.length}>
             {contentChain}
         </span>)
 }
 
 ContentRenderer.propTypes = {
-    content: PropTypes.arrayOf(PropTypes.shape({type: PropTypes.string.isRequired}).isRequired).isRequired,
+    content: PropTypes.arrayOf(PropTypes.shape({type: PropTypes.string.isRequired})).isRequired,
 }
 
 export default ContentRenderer

@@ -11,7 +11,7 @@ const DrawerMenu = ({drawerTitle, drawerLinks}) => (
 
 DrawerMenu.propTypes = {
     drawerTitle: PropTypes.string.isRequired,
-    drawerLinks: PropTypes.arrayOf(PropTypes.shape({id: PropTypes.number.isRequired, route: PropTypes.string.isRequired, text: PropTypes.string.isRequired}).isRequired).isRequired,
+    drawerLinks: PropTypes.arrayOf(PropTypes.shape({id: PropTypes.string.isRequired, route: PropTypes.string.isRequired, text: PropTypes.string.isRequired}).isRequired).isRequired,
 }
 
 export default DrawerMenu

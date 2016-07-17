@@ -1,6 +1,4 @@
-import {
-    connect
-} from 'react-redux'
+import {connect} from 'react-redux'
 import Frame from '../components/Frame'
 
 const mapStateToProps = (state) => {

@@ -4,12 +4,13 @@ var webpack = require('webpack');
 module.exports = {
     entry: [
         'webpack/hot/dev-server',
+        'whatwg-fetch',
         './src/index.js'
     ],
     output: {
         path: path.join(__dirname, './www'),
         filename: 'bundle.js'
-            //publicPath: "http://localhost:3000/"
+        //publicPath: "http://localhost:3000/"
     },
     plugins: [
         // new webpack.HotModuleReplacementPlugin(),
@@ -25,5 +26,16 @@ module.exports = {
             include: path.join(__dirname, 'src'),
             exclude: /node_modules/
         }]
+    },
+    devServer: {
+        proxy: {
+            '/api/*': {
+                target: 'http://localhost:8090/',
+                secure: false,
+                rewrite: function(req) {
+                    req.url = req.url.replace(/^\/api/, '');
+                }
+            }
+        }
     }
 };
