@@ -3,8 +3,7 @@ import Frame from '../components/Frame'
 
 const mapStateToProps = (state) => {
     return {
-        title: state.title,
-        frame: state.frame
+        frameData: state.frameData
     }
 }
 

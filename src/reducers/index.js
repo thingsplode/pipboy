@@ -1,3 +1,4 @@
+import {combineReducers} from 'redux'
 import {
     AuthenticationStatus,
     DisplayContentType,
@@ -6,121 +7,134 @@ import {
     FormEnclosureType,
     Level
 } from '../core'
-import {AUTHENTICATED, UPDATE_CONTENT, ADD_CONTENT, REMOVE_CONTENT} from '../actions'
+import {AUTHENTICATED, UPDATE_CONTENT, ADD_CONTENT, REMOVE_CONTENT, LOAD_MODULES, SHOW_ERROR} from '../actions'
 
-const initialState = {
-    title: 'some app title',
-    session: {
-        authenticationStatus: AuthenticationStatus.NOT_AUTHENTICATED,
-        user: '',
-        password: '',
-        auth_method: '',
-        token: '',
-        expire: ''
-    },
-    frame: {
-        appLinks: [{
-            id: 'command',
-            route: 'command',
-            text: 'command'
-        }, {
-            id: 'hup',
-            route: 'hup',
-            text: 'hup'
-        }, {
-            id: 'three',
-            route: 'three',
-            text: 'three'
-        }],
-        drawerTitle: 'Modules',
-        drawerLinks: [{
-            id: 'one',
-            icon: '',
-            route: 'one',
-            text: 'one'
-        }, {
-            id: 'two',
-            icon: '',
-            route: 'two',
-            text: 'two'
-        }, {
-            id: 'three',
-            icon: '',
-            route: 'three',
-            text: 'three'
-        }]
-    },
-    displayContent: [{
-        id: 'login_form',
-        type: DisplayContentType.FORM,
-        status: DisplayContentStatus.LOADED,
-        statusMessage: {},
-        enclosure: {
-            title: 'Log In',
-            type: FormEnclosureType.CARD,
-            background: 'url(http://www.getmdl.io/assets/demos/welcome_card.jpg) bottom right 15% no-repeat #fff',
-            color: '#fff',
-            padding: '20px'
-        },
-        items: [{
-            id: 'user',
-            type: FieldType.TEXT,
-            label: 'User',
-            defaultValue: 'john_doe',
-            icon: '',
-            validation: '',
-            error: ''
-        }, {
-            id: 'pass',
-            type: FieldType.PASS,
-            label: 'Password',
-            icon: '',
-            validation: '',
-            error: ''
-        }],
-        actions: [{
-            id: 'logIn',
-            label: 'Log in',
-            type: 'submit',
-            args: ['user', 'pass']
-        }]
-    }],
-    commandHistory: []
+const initialSession = {
+    authenticationStatus: AuthenticationStatus.NOT_AUTHENTICATED,
+    user: '',
+    password: '',
+    auth_method: '',
+    token: '',
+    expire: ''
 }
 
+const initialDisplayContent = [{
+    id: 'login_form',
+    type: DisplayContentType.FORM,
+    status: DisplayContentStatus.LOADED,
+    statusMessage: {},
+    enclosure: {
+        title: 'Log In',
+        type: FormEnclosureType.CARD,
+        background: 'url(http://www.getmdl.io/assets/demos/welcome_card.jpg) bottom right 15% no-repeat #fff',
+        color: '#fff',
+        padding: '20px'
+    },
+    items: [{
+        id: 'user',
+        type: FieldType.TEXT,
+        label: 'User',
+        defaultValue: 'john_doe',
+        icon: '',
+        validation: '',
+        error: ''
+    }, {
+        id: 'pass',
+        type: FieldType.PASS,
+        label: 'Password',
+        icon: '',
+        validation: '',
+        error: ''
+    }],
+    actions: [{
+        id: 'logIn',
+        label: 'Log in',
+        type: 'submit',
+        args: ['user', 'pass']
+    }]
+}]
 
-export default function appState(state = initialState, action) {
+const initialFrameData = {
+    appTitle: 'some app title',
+    drawerTitle: 'Modules',
+    modules: undefined,
+    systemMenus: [
+        {
+            "id": 'preferences',
+            "route": 'preferences',
+            "text": 'preferences',
+            "icon": 'preferences'
+        },
+        {
+            "id": 'notifications',
+            "route": 'notifications',
+            "text": 'notifications',
+            "icon": 'notifications'
+        },
+        {
+            "id": 'logout',
+            "route": 'logout',
+            "text": 'logout',
+            "icon": 'logout'
+        }]
+}
+
+function session(state = initialSession, action) {
     switch (action.type) {
-        case UPDATE_CONTENT:
-            return Object.assign({}, state, {
-                displayContent: state.displayContent.map(content => {
-                    if (content.id === action.contentId) {
-                        return Object.assign({}, content, {
-                            status: action.status,
-                            statusMessage: {
-                                level: action.level,
-                                text: action.text
-                            }
-                        })
-                    }
-                })
-            })
-        case REMOVE_CONTENT:
-            return Object.assign({}, state, {
-                displayContent: state.displayContent.filter(content => {return content.id !== action.contentId})
-            })
-        case ADD_CONTENT:
         case AUTHENTICATED:
             return Object.assign({}, state, {
-                session: {
-                    authenticationStatus: AuthenticationStatus.LOGGED_IN,
-                    user: action.user,
-                    token: action.token,
-                    expire: action.expire
-                }
+                authenticationStatus: AuthenticationStatus.LOGGED_IN,
+                user: action.user,
+                token: action.token,
+                expire: action.expire
             })
         default:
-            console.warn('Unhandled action received: ' + JSON.stringify(action))
             return state;
     }
 }
+
+function displayContent(state = initialDisplayContent, action) {
+    switch (action.type) {
+        case SHOW_ERROR:
+            return Object.assign({}, state, {})
+        case UPDATE_CONTENT:
+            return state.map(content => {
+                if (content.id === action.contentId) {
+                    return Object.assign({}, content, {
+                        status: action.status,
+                        statusMessage: {
+                            level: action.level,
+                            text: action.text
+                        }
+                    })
+                }
+            })
+        case REMOVE_CONTENT:
+            return state.filter(content => {
+                return content.id !== action.contentId
+            })
+        case ADD_CONTENT:
+        default:
+            return state;
+    }
+}
+
+function frameData(state = initialFrameData, action) {
+    switch (action.type) {
+        case LOAD_MODULES:
+            return Object.assign({}, state, {
+                modules: action.modules
+            })
+        default:
+            console.warn('Unhandled action received: ' + action.type)
+            return state
+    }
+}
+
+const appState = combineReducers({
+    session,
+    frameData,
+    displayContent,
+})
+
+export default appState
