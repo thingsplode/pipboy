@@ -35,3 +35,9 @@ export const FieldType = {
     PASS: 'password',
     DATE: 'date'
 }
+
+export const SystemMenuType = {
+    CONTAINER: 'CONTAINER',
+    SUB_MENU: 'SUB_MENU',
+    SIMPLE: 'SIMPLE'
+}

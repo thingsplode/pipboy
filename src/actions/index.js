@@ -8,8 +8,10 @@ export const ADD_CONTENT = 'ADD_CONTENT'
 export const ADD_MENU = 'ADD_MENU'
 export const REMOVE_MENU = 'REMOVE_MENU'
 export const AUTHENTICATED = 'AUTHENTICATED'
-export const LOAD_MODULES = 'LOAD_MODULES'
+export const LOAD_FRAME = 'LOAD_FRAME'
 export const SHOW_ERROR = 'SHOW_ERROR'
+export const LOGOUT = 'LOGOUT'
+export const TRIGGER_ACTION = 'TRIGGER_ACTION'
 
 export const AuthenticationActions = {
     authenticated(user, token, expire){
@@ -30,10 +32,10 @@ export const ContentActions = {
             text: text
         }
     },
-    loadModules(modules){
+    loadModules(frameData){
         return {
-            type: LOAD_MODULES,
-            modules: modules
+            type: LOAD_FRAME,
+            frameData: frameData
         }
     },
     addMenu(links, intoDrawer){
@@ -69,8 +71,14 @@ export const ContentActions = {
             type: ADD_CONTENT,
             content: content
         }
-    }
-}
+    },
+    triggerAction(name){
+        return {
+            type: TRIGGER_ACTION,
+            name
+        }
+    }}
+
 export const Actions = {
     logIn(user, pass, sourceId) {
         return function (dispatch) {
@@ -82,7 +90,6 @@ export const Actions = {
                     'Content-Type': "application/x-www-form-urlencoded"
                 },
                 body: 'username=' + user + '&password=' + pass + '&eauth=pam'
-
             }).then(FetchUtil.checkStatus)
                 .then(rsp => {
                     dispatch(ContentActions.removeContent(sourceId))
@@ -92,7 +99,7 @@ export const Actions = {
                 .then(json => {
                     console.log(JSON.stringify(json))
                     dispatch(AuthenticationActions.authenticated(json.return[0].user, json.return[0].token, json.return[0].expire))
-                    dispatch(Actions.retreiveModules())
+                    dispatch(Actions.retreiveFrameData())
                 })
                 .catch(function (error) {
                     console.error(error)
@@ -100,10 +107,34 @@ export const Actions = {
                 })
         }
     },
-
-    retreiveModules(){
+    triggerAction(actionName){
         return function (dispatch) {
-            return fetch('/api/modules', {
+            dispatch(ContentActions.triggerAction(actionName))
+            if (typeof Actions[actionName] === "function") {
+                dispatch(Actions[actionName]())
+            }
+
+        }
+    },
+    logout(){
+        return function (dispatch, getState) {
+            const {session} = getState()
+            return fetch('/api/logout',{
+                method: 'POST',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': "application/x-www-form-urlencoded",
+                    'X-Auth-Token': session.token
+                }}).then(FetchUtil.checkStatus)
+                .then(FetchUtil.parseJSON)
+                .then(json => {
+                    console.log(JSON.stringify(json))
+                })
+        }
+    },
+    retreiveFrameData(){
+        return function (dispatch) {
+            return fetch('/api/frame', {
                 method: 'GET',
                 headers: {
                     'Accept': 'application/json'

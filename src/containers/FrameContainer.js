@@ -7,6 +7,10 @@ const mapStateToProps = (state) => {
     }
 }
 
-const FrameContainer = connect(mapStateToProps)(Frame)
+const mapDispatchToProps = (dispatch) => {
+    return {dispatch: dispatch}
+}
+
+const FrameContainer = connect(mapStateToProps, mapDispatchToProps)(Frame)
 
 export default FrameContainer

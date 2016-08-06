@@ -5,9 +5,10 @@ import {
     DisplayContentStatus,
     FieldType,
     FormEnclosureType,
+    SystemMenuType,
     Level
 } from '../core'
-import {AUTHENTICATED, UPDATE_CONTENT, ADD_CONTENT, REMOVE_CONTENT, LOAD_MODULES, SHOW_ERROR} from '../actions'
+import {AUTHENTICATED, UPDATE_CONTENT, ADD_CONTENT, REMOVE_CONTENT, LOAD_FRAME, SHOW_ERROR, TRIGGER_ACTION} from '../actions'
 
 const initialSession = {
     authenticationStatus: AuthenticationStatus.NOT_AUTHENTICATED,
@@ -58,25 +59,7 @@ const initialFrameData = {
     appTitle: 'some app title',
     drawerTitle: 'Modules',
     modules: undefined,
-    systemMenus: [
-        {
-            "id": 'preferences',
-            "route": 'preferences',
-            "text": 'preferences',
-            "icon": 'preferences'
-        },
-        {
-            "id": 'notifications',
-            "route": 'notifications',
-            "text": 'notifications',
-            "icon": 'notifications'
-        },
-        {
-            "id": 'logout',
-            "route": 'logout',
-            "text": 'logout',
-            "icon": 'logout'
-        }]
+    systemMenus: undefined
 }
 
 function session(state = initialSession, action) {
@@ -88,6 +71,8 @@ function session(state = initialSession, action) {
                 token: action.token,
                 expire: action.expire
             })
+        case TRIGGER_ACTION:
+            return state;
         default:
             return state;
     }
@@ -121,9 +106,10 @@ function displayContent(state = initialDisplayContent, action) {
 
 function frameData(state = initialFrameData, action) {
     switch (action.type) {
-        case LOAD_MODULES:
+        case LOAD_FRAME:
             return Object.assign({}, state, {
-                modules: action.modules
+                modules: action.frameData.modules,
+                systemMenus: action.frameData.systemMenus
             })
         default:
             console.warn('Unhandled action received: ' + action.type)

@@ -4,34 +4,41 @@ import ReactDOM from 'react-dom'
 import AppMenu from './AppMenu'
 import DrawerMenu from './DrawerMenu'
 import ContentRendererContainer from '../containers/ContentRendererContainer'
+import {Actions} from '../actions'
 
 class Frame extends React.Component {
     constructor(props) {
         super(props)
+        this.callSystemMenu = this.callSystemMenu.bind(this)
+    }
+
+    callSystemMenu(actionEvent) {
+        //console.log('h ->[' + actionEvent.target.dataset.action + ']')
+        this.props.dispatch(Actions.triggerAction(actionEvent.target.dataset.action))
     }
 
     componentDidMount() {
-        console.log('frame -> componentDidMount');
+        //console.log('frame -> componentDidMount');
         let domNode = ReactDOM.findDOMNode(this);
         let ch = componentHandler.upgradeElement(domNode);
     }
 
     componentDidUpdate() {
-        console.log('frame -> componentDidUpdate');
+        //console.log('frame -> componentDidUpdate');
         //componentHandler.upgradeDom()
     }
 
     componentWillUpdate() {
-        console.log('frame -> componentWillUpdate')
+        //console.log('frame -> componentWillUpdate')
     }
 
     shouldComponentUpdate() {
-        console.log('frame -> shouldComponentUpdate');
+        //console.log('frame -> shouldComponentUpdate');
         return true
     }
 
     componentWillReceiveProps() {
-        console.log('frame -> componentWillReceiveProps')
+        //console.log('frame -> componentWillReceiveProps')
     }
 
     render() {
@@ -41,7 +48,11 @@ class Frame extends React.Component {
             <Layout>
                 {modules ?
                     <Header title={this.props.frameData.appTitle} scroll>
-                        <AppMenu appLinks={this.props.frameData.systemMenus}/>
+                        <AppMenu appLinks={this.props.frameData.systemMenus} onMenuClick={(e) => {
+                            e.preventDefault()
+                            this.callSystemMenu(e)
+                        }
+                        }/>
                     </Header>
                     : <span/>}
                 {modules ?
@@ -59,6 +70,7 @@ class Frame extends React.Component {
 }
 
 Frame.propTypes = {
+    dispatch: PropTypes.func.isRequired,
     //title: PropTypes.string.isRequired,
     //frameData: PropTypes.is
 }
