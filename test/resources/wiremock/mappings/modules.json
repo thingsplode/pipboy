@@ -1,0 +1,100 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "/frame",
+    "headers": {
+      "Accept": {
+        "matches": "application/json"
+      }
+    }
+  },
+  "response": {
+    "status": 200,
+    "jsonBody": {
+      "modules":{
+        "activeId": "one",
+        "list": [
+          {
+            "id": 'one',
+            "icon": '',
+            "route": 'one',
+            "text": 'one',
+            "appLinks": [
+              {
+                "id": 'command',
+                "route": 'command',
+                "text": 'command'
+              },
+              {
+                "id": 'hup',
+                "route": 'hup',
+                "text": 'hup'
+              },
+              {
+                "id": 'three',
+                "route": 'three',
+                "text": 'three'
+              }
+            ]
+          },
+          {
+            "id": 'two',
+            "icon": '',
+            "route": 'two',
+            "text": 'two',
+            "appLinks": []
+          },
+          {
+            "id": 'three',
+            "icon": '',
+            "route": 'three',
+            "text": 'three',
+            "appLinks": []
+          }
+        ]
+      },
+      "systemMenus": [
+        {
+          "id": 'preferences',
+          "text": 'preferences',
+          "action": 'preferences',
+          "icon": 'settings',
+          "type": "SUB_MENU",
+          "items": [
+            {
+              "id": 'users',
+              "text": 'users',
+              "action": 'user_edit',
+              "icon": 'person'
+            },
+            {
+              "id": 'groups',
+              "text": 'groups',
+              "action": 'group_edit',
+              "icon": 'group'
+            }
+          ]
+        },
+        {
+          "id": 'notifications',
+          "action": 'notifications',
+          "text": 'notifications',
+          "icon": 'mail_outline',
+          "type": "CONTAINER",
+          "counter": 0
+        },
+        {
+          "id": 'logout',
+          "text": 'logout',
+          "action": 'logout',
+          "icon": 'power_settings_new',
+          "type": "SIMPLE"
+        }
+      ]
+    },
+    "headers": {
+      "Content-Type": "text/plain"
+    },
+    "fixedDelayMilliseconds": 200
+  }
+}
