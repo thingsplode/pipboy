@@ -11,15 +11,30 @@ class Form extends React.Component {
         this.state = {}
         props.fields.map(field => this.state[field.id] = typeof (field.defaultValue) !== 'undefined' ? field.defaultValue : '')
         this.submit = this.submit.bind(this)
+        this.buttonClicked = this.buttonClicked.bind(this)
+        this.keyPressed = this.keyPressed.bind(this)
         this.fieldChange = this.fieldChange.bind(this)
         this.isIndeterminate = this.isIndeterminate.bind(this)
     }
 
-    submit(actionEvent) {
-        let action = this.props.actions.find(a => a.id == actionEvent.target.id)
+    submit(action) {
         let dispatchActionArgs = action.args.map(arg => this.state[arg])
         dispatchActionArgs.push(this.props.id)
-        this.props.dispatch(Actions[actionEvent.target.id].apply(this, dispatchActionArgs))
+        this.props.dispatch(Actions[action.id].apply(this, dispatchActionArgs))
+    }
+
+    buttonClicked(actionEvent) {
+        let action = this.props.actions.find(a => a.id == actionEvent.target.id)
+        if (typeof action !== 'undefined') {
+            this.submit(action)
+        }
+    }
+
+    keyPressed(keyEvent) {
+        let action = this.props.actions.find(a => a.key == keyEvent.key)
+        if (typeof action !== 'undefined') {
+            this.submit(action)
+        }
     }
 
     fieldChange(fieldChangeEvent) {
@@ -34,7 +49,10 @@ class Form extends React.Component {
         switch (this.props.enclosure.type) {
             case FormEnclosureType.CARD:
                 return (
-                    <Card shadow={5} style={{width: '320px', height: '320px', margin: 'auto'}}>
+                    <Card
+                        shadow={5}
+                        style={{width: '320px', height: '320px', margin: 'auto'}}
+                    >
                         <CardTitle expand style={{
                             color: this.props.enclosure.color,
                             background: this.props.enclosure.background
@@ -46,7 +64,8 @@ class Form extends React.Component {
                                          message={this.props.statusMessage.text}/>
                             </CardText>
                             : ''}
-                        <Fields fields={this.props.fields} fieldChangeFunction={this.fieldChange}/>
+                        <Fields fields={this.props.fields} fieldChangeFunction={this.fieldChange}
+                                keyPressedFunction={this.keyPressed}/>
 
                         {typeof (this.props.actions !== 'undefined') && !this.isIndeterminate() ?
                             <CardActions border style={{float: 'right', padding: '10px', alignItems: 'center'}}>
@@ -54,7 +73,7 @@ class Form extends React.Component {
                                     <Button key={action.id} id={action.id} type={action.type}
                                             onClick={e => {
                                                 e.preventDefault()
-                                                this.submit(e)
+                                                this.buttonClicked(e)
                                             }} colored>
                                         {action.label}
                                     </Button>)}
@@ -71,7 +90,7 @@ class Form extends React.Component {
     }
 }
 
-const Fields = ({fields, fieldChangeFunction}) => (
+const Fields = ({fields, fieldChangeFunction, keyPressedFunction}) => (
     <div style={{
         width: '80%',
         margin: 'auto'
@@ -80,6 +99,9 @@ const Fields = ({fields, fieldChangeFunction}) => (
             onChange={e => {
                 //validation comes here
                 fieldChangeFunction(e)
+            }}
+            onKeyPress={e => {
+                keyPressedFunction(e)
             }}
             id={field.id}
             defaultValue={field.defaultValue}

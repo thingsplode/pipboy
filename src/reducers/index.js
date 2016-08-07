@@ -50,7 +50,8 @@ const initialDisplayContent = [{
     actions: [{
         id: 'logIn',
         label: 'Log in',
-        type: 'submit',
+        type: 'buttonClicked',
+        key: 'Enter',
         args: ['user', 'pass']
     }]
 }]

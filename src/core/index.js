@@ -3,6 +3,11 @@ export const AuthenticationStatus = {
     LOGGED_IN: 'LOGGED_IN'
 }
 
+export const ActionSource = {
+    SYSTEM_MENU: 'SYSTEM_MENU',
+    MODULE: 'MODULE'
+}
+
 export const Level = {
     INFO: 'INFO',
     WARN: 'WARNING',

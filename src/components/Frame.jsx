@@ -5,16 +5,16 @@ import AppMenu from './AppMenu'
 import DrawerMenu from './DrawerMenu'
 import ContentRendererContainer from '../containers/ContentRendererContainer'
 import {Actions} from '../actions'
+import {ActionSource} from '../core'
 
 class Frame extends React.Component {
     constructor(props) {
         super(props)
-        this.callSystemMenu = this.callSystemMenu.bind(this)
+        this.callSystemAction = this.callSystemAction.bind(this)
     }
 
-    callSystemMenu(actionEvent) {
-        //console.log('h ->[' + actionEvent.target.dataset.action + ']')
-        this.props.dispatch(Actions.triggerAction(actionEvent.target.dataset.action))
+    callSystemAction(actionId, actionSource) {
+        this.props.dispatch(Actions.triggerAction(actionId, actionSource))
     }
 
     componentDidMount() {
@@ -48,17 +48,18 @@ class Frame extends React.Component {
             <Layout>
                 {modules ?
                     <Header title={this.props.frameData.appTitle} scroll>
-                        <AppMenu appLinks={this.props.frameData.systemMenus} onMenuClick={(e) => {
-                            e.preventDefault()
-                            this.callSystemMenu(e)
-                        }
-                        }/>
+                        <AppMenu appLinks={this.props.frameData.systemMenus}
+                                 callSystemActionFunction={this.callSystemAction}
+                                 />
                     </Header>
                     : <span/>}
                 {modules ?
                     <DrawerMenu drawerTitle={this.props.frameData.drawerTitle}
-                                drawerLinks={this.props.frameData.modules.list} frameInstance={this}/> :
-                    <DrawerMenu drawerTitle="Empty" drawerLinks={[]}/>}
+                                drawerLinks={this.props.frameData.modules.list}
+                                frameInstance={this}
+                                callSystemActionFunction={this.callSystemAction}
+                    /> :
+                    <DrawerMenu drawerTitle="Empty" callSystemActionFunction={this.callSystemAction} drawerLinks={[]}/>}
                 <Content>
                     <div className="page-content" style={{float: 'none', margin: '0 auto', padding: '15px'}}>
                         <ContentRendererContainer/>

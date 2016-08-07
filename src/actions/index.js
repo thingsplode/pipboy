@@ -1,6 +1,6 @@
 import fetch from 'isomorphic-fetch'
 import {FetchUtil} from '../Util'
-import {Level, DisplayContentStatus} from '../core'
+import {Level, DisplayContentStatus, ActionSource} from '../core'
 
 export const UPDATE_CONTENT = 'UPDATE_CONTENT'
 export const REMOVE_CONTENT = 'REMOVE_CONTENT'
@@ -72,12 +72,14 @@ export const ContentActions = {
             content: content
         }
     },
-    triggerAction(name){
+    triggerAction(name, actionSource){
         return {
             type: TRIGGER_ACTION,
-            name
+            name,
+            actionSource
         }
-    }}
+    }
+}
 
 export const Actions = {
     logIn(user, pass, sourceId) {
@@ -107,32 +109,45 @@ export const Actions = {
                 })
         }
     },
-    triggerAction(actionName){
+    triggerAction(actionName, actionSource){
         return function (dispatch) {
-            dispatch(ContentActions.triggerAction(actionName))
-            if (typeof Actions[actionName] === "function") {
-                dispatch(Actions[actionName]())
+            dispatch(ContentActions.triggerAction(actionName, actionSource))
+            switch (actionSource) {
+                case ActionSource.SYSTEM_MENU:
+                    if (typeof Actions[actionName] === "function") {
+                        dispatch(Actions[actionName]())
+                    }
+                    break
+                case
+                ActionSource.MODULE:
+                default:
+                    break
             }
 
         }
     },
-    logout(){
+    logout
+        ()
+    {
         return function (dispatch, getState) {
             const {session} = getState()
-            return fetch('/api/logout',{
+            return fetch('/api/logout', {
                 method: 'POST',
                 headers: {
                     'Accept': 'application/json',
                     'Content-Type': "application/x-www-form-urlencoded",
                     'X-Auth-Token': session.token
-                }}).then(FetchUtil.checkStatus)
+                }
+            }).then(FetchUtil.checkStatus)
                 .then(FetchUtil.parseJSON)
                 .then(json => {
                     console.log(JSON.stringify(json))
                 })
         }
-    },
-    retreiveFrameData(){
+    }
+    ,
+    retreiveFrameData()
+    {
         return function (dispatch) {
             return fetch('/api/frame', {
                 method: 'GET',
