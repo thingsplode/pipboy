@@ -65,13 +65,17 @@
               "id": 'users',
               "text": 'users',
               "action": 'user_edit',
-              "icon": 'person'
+              "icon": 'person',
+              "label": "Add edit users",
+              "disabled": false
             },
             {
               "id": 'groups',
               "text": 'groups',
               "action": 'group_edit',
-              "icon": 'group'
+              "icon": 'group',
+              "label": "Groups",
+              "disabled": true
             }
           ]
         },
