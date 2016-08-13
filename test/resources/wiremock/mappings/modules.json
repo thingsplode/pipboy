@@ -1,7 +1,7 @@
 {
   "request": {
     "method": "GET",
-    "url": "/frame",
+    "url": "/modules/",
     "headers": {
       "Accept": {
         "matches": "application/json"
@@ -11,6 +11,11 @@
   "response": {
     "status": 200,
     "jsonBody": {
+      "grid": [
+        {"cells":[{"cellidx": 0, "col": 12}]},
+        {"cells":[{"cellidx": 1, "col": 8, "phone": 12},{"cellidx": 2, "col": 4, "phone": 12}]},
+        {"cells":[{"cellidx": 3, "col": 12, "tabs":[]}]}
+      ],
       "modules":{
         "activeId": "one",
         "list": [
