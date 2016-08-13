@@ -2,11 +2,17 @@ import React, {PropTypes} from 'react'
 import {DisplayContentType, FieldType, FormEnclosureType} from '../core'
 import Form from './Form'
 
-const ContentRenderer = ({content, dispatch}) => {
-    let contentChain = []
-    content.map(contentElement => {
+const ContentRenderer = ({cellId, content, dispatch}) => {
+    console.log('cellId -> ' + cellId)
+    let contentChain = [];
+    let filteredElems = content.filter(displayElement => {
+        return displayElement.cellidx === cellId
+    });
+    console.log('elem size: ' + filteredElems.length)
+    filteredElems.map(contentElement => {
         switch (contentElement.type) {
             case DisplayContentType.FORM:
+                console.log('we push a nice form')
                 contentChain.push(
                     <Form
                         id={contentElement.id}
@@ -27,14 +33,13 @@ const ContentRenderer = ({content, dispatch}) => {
                 contentChain.push(<div>DEFAULT</div>)
                 break;
         }
-    })
-    return (<span key={contentChain.length}>
-            {contentChain}
-        </span>)
-}
+    });
+
+    return (<span key={contentChain.length}>{contentChain}</span>)
+};
 
 ContentRenderer.propTypes = {
     content: PropTypes.arrayOf(PropTypes.shape({type: PropTypes.string.isRequired})).isRequired,
-}
+};
 
 export default ContentRenderer

@@ -4,11 +4,17 @@ import {
     DisplayContentType,
     DisplayContentStatus,
     FieldType,
-    FormEnclosureType,
-    SystemMenuType,
-    Level
+    FormEnclosureType
 } from '../core'
-import {AUTHENTICATED, UPDATE_CONTENT, ADD_CONTENT, REMOVE_CONTENT, LOAD_FRAME, SHOW_ERROR, TRIGGER_ACTION} from '../actions'
+import {
+    AUTHENTICATED,
+    UPDATE_CONTENT,
+    ADD_CONTENT,
+    REMOVE_CONTENT,
+    LOAD_FRAME,
+    SHOW_ERROR,
+    TRIGGER_ACTION
+} from '../actions'
 
 const initialSession = {
     authenticationStatus: AuthenticationStatus.NOT_AUTHENTICATED,
@@ -21,9 +27,12 @@ const initialSession = {
 
 const initialDisplayContent = [{
     id: 'login_form',
+    index: 0,
     type: DisplayContentType.FORM,
     status: DisplayContentStatus.LOADED,
     statusMessage: {},
+    cellidx: 0,
+    tabidx: undefined,
     enclosure: {
         title: 'Log In',
         type: FormEnclosureType.CARD,
@@ -59,6 +68,9 @@ const initialDisplayContent = [{
 const initialFrameData = {
     appTitle: 'some app title',
     drawerTitle: 'Modules',
+    grid: [
+        {cells:[{cellidx: 0, align: "top", col: 12}]}
+    ],
     modules: undefined,
     systemMenus: undefined
 }

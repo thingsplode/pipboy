@@ -1,5 +1,5 @@
 import React, {PropTypes} from 'react'
-import {Card, CardText, CardTitle, CardActions, Button, Textfield, ProgressBar} from 'react-mdl'
+import {Card, CardText, CardTitle, CardActions, Button, Icon, Textfield, ProgressBar} from 'react-mdl'
 import {Actions} from '../actions'
 import {FormEnclosureType, Level, DisplayContentStatus} from '../core'
 import Message from './Message'
@@ -68,8 +68,9 @@ class Form extends React.Component {
                                 keyPressedFunction={this.keyPressed}/>
 
                         {typeof (this.props.actions !== 'undefined') && !this.isIndeterminate() ?
-                            <CardActions border style={{float: 'right', padding: '10px', alignItems: 'center'}}>
-                                {this.props.actions.map(action =>
+                            <CardActions border style={{display: 'flex', boxSizing: 'border-box', alignItems: 'center', color: '#fff'}}>
+                                <div className="mdl-layout-spacer"/>
+                                      {this.props.actions.map(action =>
                                     <Button key={action.id} id={action.id} type={action.type}
                                             onClick={e => {
                                                 e.preventDefault()

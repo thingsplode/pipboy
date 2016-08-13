@@ -149,7 +149,7 @@ export const Actions = {
     retreiveFrameData()
     {
         return function (dispatch) {
-            return fetch('/api/frame', {
+            return fetch('/api/modules/', {
                 method: 'GET',
                 headers: {
                     'Accept': 'application/json'

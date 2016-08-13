@@ -1,5 +1,5 @@
 import React, {PropTypes} from 'react'
-import {Layout, Header, Content, Textfield} from 'react-mdl'
+import {Layout, Header, Content, Grid, Cell} from 'react-mdl'
 import ReactDOM from 'react-dom'
 import AppMenu from './AppMenu'
 import DrawerMenu from './DrawerMenu'
@@ -8,6 +8,14 @@ import {Actions} from '../actions'
 import {ActionSource} from '../core'
 
 class Frame extends React.Component {
+    /**
+     *  Grid structure on this.props.frameData.grid
+     *  "grid": [
+     *    {"cells":[{"cellidx": 0, "col": 12}]},
+     *    {"cells":[{"cellidx": 1, "col": 8, "phone": 12},{"cellidx": 2, "col": 4, "phone": 12}]},
+     *    {"cells":[{"cellidx": 3, "col": 12, "tabs":[]}]}
+     *    ],
+     */
     constructor(props) {
         super(props)
         this.callSystemAction = this.callSystemAction.bind(this)
@@ -21,6 +29,7 @@ class Frame extends React.Component {
         //console.log('frame -> componentDidMount');
         let domNode = ReactDOM.findDOMNode(this);
         let ch = componentHandler.upgradeElement(domNode);
+        componentHandler.upgradeDom();
     }
 
     componentDidUpdate() {
@@ -42,6 +51,8 @@ class Frame extends React.Component {
     }
 
     render() {
+        const grid = this.props.frameData.grid
+
         let modules = typeof this.props.frameData !== 'undefined' &&
             typeof this.props.frameData.modules !== 'undefined'
         return (<div className="frame-content">
@@ -50,7 +61,7 @@ class Frame extends React.Component {
                     <Header title={this.props.frameData.appTitle} scroll>
                         <AppMenu appLinks={this.props.frameData.systemMenus}
                                  callSystemActionFunction={this.callSystemAction}
-                                 />
+                        />
                     </Header>
                     : <span/>}
                 {modules ?
@@ -62,7 +73,15 @@ class Frame extends React.Component {
                     <DrawerMenu drawerTitle="Empty" callSystemActionFunction={this.callSystemAction} drawerLinks={[]}/>}
                 <Content>
                     <div className="page-content" style={{float: 'none', margin: '0 auto', padding: '15px'}}>
-                        <ContentRendererContainer/>
+                        <Grid className="frame_grid">
+                            {grid.map(row =>
+                                row.cells.map(cell =>
+                                    <Cell col={6} tablet={8}>
+                                        <ContentRendererContainer cellId={cell.cellidx}/>
+                                    </Cell>
+                                )
+                            )}
+                        </Grid>
                     </div>
                 </Content>
             </Layout>
