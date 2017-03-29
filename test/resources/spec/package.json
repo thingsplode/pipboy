@@ -1,0 +1,74 @@
+{
+  "Menu": {
+[{
+  "MenuItem"
+  :
+  [
+  {
+  "type": "Space",
+  "icon": "images/configuration.png",
+  "caption": "Configuration",
+  "hint": "All configuration aspects of the system",
+  "css_class": "",
+  "elements":[]},
+  {
+  "type": "Standard",
+  "icon": "images/systemcfg.png",
+  "caption": "System",
+  "hint": "All system configuration related items",
+  "css-classs ": "",
+  "elements":[]},,
+  {
+  "icon": "images/chargepoint.png",
+  "caption": "Chargepoint",
+  "hint": "General configuration options of the chargepoing",
+  "cssClass": "",
+  "resourceUri": "com.keba.kemove.cpm.services.ux.ChargepointCfgCmd",
+  "executor-type": "CommandExecutor",
+  "editable": false
+  },
+  {
+  "icon": "images/chargepoint.png",
+  "caption": "Chargepoint",
+  "hint": "General configuration options of the chargepoing",
+  "cssClass": "",
+  "resourceUri": "com.keba.kemove.cpm.services.ux.ChargepointCfgCmd",
+  "executor-type": "CommandExecutor",
+  "editable": false
+  }
+  ]
+  },
+  {
+  "type": "System",
+  "icon": "images/useravatar.png",
+  "caption": "John Doe",
+  "hint": "User preference and configuration",
+  "css-classs ": "",
+  "elements":[
+  {
+  "icon": "images/logout.png",
+  "caption": "Logout",
+  "hint": "Log out current user",
+  "cssClass": "",
+  "resourceUri": "com.keba.kemove.cpm.services.ux.LogoutCmd",
+  "executor-type": "CommandExecutor",
+  "editable": false,
+  },
+  {
+  "icon": "images/user_prefs.png",
+  "caption": "Preferences",
+  "hint": "Preferences of the current user",
+  "cssClass": "",
+  "executor-parameter":"com.keba.kemove.cpm.services.ux.UserPreferencesCmd",
+  "executor-type": "CommandExecutor",
+  "editable": false,
+
+  }
+  ]
+  }
+  ]
+  }
+  ]
+]
+}
+}

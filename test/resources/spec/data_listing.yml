@@ -1,0 +1,31 @@
+data-listing
+    title: internationalized title text //required
+    icon: the path of the icon taken from the menu config /optional
+    editable: true | false | inline /required
+    sortable: true | false /required
+    quick-search: true | false /required
+    css-class: /optional
+    header:
+        - header-item
+            seq: n
+            caption: internationalized caption text
+            icon: /optional
+            cell-renderer: numeric | coordinate | time | float | text | boolean | date
+
+            validators:
+                - validator
+                    type: regex | digits | size | not_null | min | max |decimal_min | decimal_max | future | past
+                    err_message: some validation error message
+                    parameter: regex or min value, or other
+            option-selector:
+                type: preloaded | lookup
+                parameter: some text
+                options:
+                    - form-field-option
+                        icon: some icon
+                        value: some value
+    rows:
+        - row
+            cells:
+                - cell-value: some data or null
+                - cell-value: some data or null

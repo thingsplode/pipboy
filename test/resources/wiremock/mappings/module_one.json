@@ -1,0 +1,165 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "/modules/one",
+    "headers": {
+      "Accept": {
+        "matches": "application/json"
+      }
+    }
+  },
+  "response": {
+    "status": 200,
+    "jsonBody": {
+      "displayContent": [
+        {
+          "id": "devices",
+          "index": 0,
+          "type": "LIST",
+          "status": "LOADING",
+          "statusMessage": {},
+          "cellidx": 0,
+          "tabidx": "",
+          "enclosure": {
+            "title": "List of devices",
+            "type": "TABLE",
+            "background": "url(http://www.getmdl.io/assets/demos/welcome_card.jpg) bottom right 15% no-repeat #fff",
+            "color": "#fff",
+            "padding": "20px",
+            "page": 0,
+            "page-count": 5,
+            "editable": true,
+            "sortable": true,
+            "selectable": true,
+            "quick-search": true,
+            "rowkey":"0",
+            "header": [
+              {
+                "seq": "0",
+                "id": "minion_id",
+                "caption": "id",
+                "tooltip": "the unique id of the minion",
+                "cell-renderer": "text"
+              },
+              {
+                "seq": "1",
+                "id": "timezone",
+                "caption": "timezone",
+                "tooltip": "the timezone of the system",
+                "cell-renderer": "text"
+              },
+              {
+                "seq": "2",
+                "id": "os_family",
+                "caption": "OS family",
+                "tooltip": "the operating system family",
+                "cell-renderer": "text"
+              },
+              {
+                "seq": "3",
+                "id": "osfullname",
+                "caption": "os fullname",
+                "tooltip": "the full name of the operating system",
+                "cell-renderer": "text"
+              },
+              {
+                "seq": "4",
+                "id": "hateoas",
+                "caption": "Options",
+                "tooltip": "HATEOAS options",
+                "cell-renderer": "hateoas"
+              }
+            ]
+          },
+          "items": [
+            {
+              "0": "opsmaster",
+              "1": "(UTC+02:00) Athens, Bucharest",
+              "2": "Debian",
+              "3": "Ubuntu"
+            },
+            {
+              "0": "TEST_MINION_0001",
+              "1": "(UTC+02:00) Athens, Bucharest",
+              "2": "Windows",
+              "3": "Microsoft Windows Embedded Standard"
+            }
+          ],
+          "actions": [
+            {
+              "id": "getRawData",
+              "label": "Get Raw Data",
+              "type": "buttonClicked",
+              "icon": "",
+              "key": "Enter",
+              "args": [
+                "minion_id"
+              ]
+            },
+            {
+              "id": "executeCommand",
+              "label": "Execute Command",
+              "type": "buttonClicked",
+              "icon": "",
+              "key": "Enter",
+              "args": [
+                "minion_id"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "login_form",
+          "index": 0,
+          "type": "FORM",
+          "status": "LOADED",
+          "statusMessage": {},
+          "cellidx": 3,
+          "tabidx": "",
+          "enclosure": {
+            "title": "Log In",
+            "type": "CARD",
+            "background": "url(http://www.getmdl.io/assets/demos/welcome_card.jpg) bottom right 15% no-repeat #fff",
+            "color": "#fff",
+            "padding": "20px"
+          },
+          "items": [
+            {
+              "id": "user",
+              "type": "text",
+              "label": "User",
+              "defaultValue": "john_doe",
+              "icon": "",
+              "validation": "",
+              "error": ""
+            },
+            {
+              "id": "pass",
+              "type": "password",
+              "label": "Password",
+              "icon": "",
+              "validation": "",
+              "error": ""
+            }
+          ],
+          "actions": [
+            {
+              "id": "logIn",
+              "label": "Log in",
+              "type": "buttonClicked",
+              "key": "Enter",
+              "args": [
+                "user",
+                "pass"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    "headers": {
+      "Content-Type": "text/plain"
+    },
+    "fixedDelayMilliseconds": 200
+  }
+}
