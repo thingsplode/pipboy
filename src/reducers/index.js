@@ -112,6 +112,7 @@ function displayContent(state = initialDisplayContent, action) {
                 return content.id !== action.contentId
             })
         case ADD_CONTENT:
+            return [].concat(state).concat(action.content)
         default:
             return state;
     }
@@ -121,11 +122,12 @@ function frameData(state = initialFrameData, action) {
     switch (action.type) {
         case LOAD_FRAME:
             return Object.assign({}, state, {
+                grid: action.frameData.grid,
                 modules: action.frameData.modules,
                 systemMenus: action.frameData.systemMenus
             })
         default:
-            console.warn('Unhandled action received: ' + action.type)
+            //console.warn('Unhandled action received: ' + action.type)
             return state
     }
 }

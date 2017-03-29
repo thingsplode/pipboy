@@ -31,8 +31,7 @@ export const DisplayContentStatus = {
 
 export const FormEnclosureType = {
     CARD: 'CARD',
-    TABLE: 'TABLE',
-    NONE: 'NONE'
+    STRETCHED: 'STRETCHED'
 }
 
 export const FieldType = {

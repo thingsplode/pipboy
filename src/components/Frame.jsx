@@ -8,6 +8,7 @@ import {Actions} from '../actions'
 import {ActionSource} from '../core'
 
 class Frame extends React.Component {
+
     /**
      *  Grid structure on this.props.frameData.grid
      *  "grid": [
@@ -16,6 +17,7 @@ class Frame extends React.Component {
      *    {"cells":[{"cellidx": 3, "col": 12, "tabs":[]}]}
      *    ],
      */
+
     constructor(props) {
         super(props)
         this.callSystemAction = this.callSystemAction.bind(this)
@@ -76,7 +78,11 @@ class Frame extends React.Component {
                         <Grid className="frame_grid">
                             {grid.map(row =>
                                 row.cells.map(cell =>
-                                    <Cell col={6} tablet={8}>
+                                    <Cell col={cell.col}
+                                          tablet={cell.tablet}
+                                          phone={cell.phone}
+                                          key={cell.cellidx}>
+                                        {/*style={{borderSize: '1px', borderColor:'red', borderStyle:'solid'}}*/}
                                         <ContentRendererContainer cellId={cell.cellidx}/>
                                     </Cell>
                                 )

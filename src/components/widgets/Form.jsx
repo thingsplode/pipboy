@@ -1,8 +1,8 @@
 import React, {PropTypes} from 'react'
 import {Card, CardText, CardTitle, CardActions, Button, Icon, Textfield, ProgressBar} from 'react-mdl'
-import {Actions} from '../actions'
-import {FormEnclosureType, Level, DisplayContentStatus} from '../core'
-import Message from './Message'
+import {Actions} from '../../actions'
+import {FormEnclosureType, Level, DisplayContentStatus} from '../../core'
+import Message from '../Message'
 
 
 class Form extends React.Component {
@@ -83,8 +83,7 @@ class Form extends React.Component {
                                                  message={this.props.statusMessage.text}/></CardText>}
                     </Card>
                 )
-            case FormEnclosureType.TABLE:
-            case FormEnclosureType.NONE:
+            case FormEnclosureType.STRETCHED:
             default:
                 return (<div>Not Supported Yet</div>)
         }

@@ -1,40 +1,44 @@
 import React, {PropTypes} from 'react'
-import {DisplayContentType, FieldType, FormEnclosureType} from '../core'
-import Form from './Form'
+import {DisplayContentType} from '../core'
+import Form from './widgets/Form'
+import DataList from './widgets/DataList'
 
 const ContentRenderer = ({cellId, content, dispatch}) => {
-    console.log('cellId -> ' + cellId)
     let contentChain = [];
-    let filteredElems = content.filter(displayElement => {
-        return displayElement.cellidx === cellId
-    });
-    console.log('elem size: ' + filteredElems.length)
-    filteredElems.map(contentElement => {
-        switch (contentElement.type) {
-            case DisplayContentType.FORM:
-                console.log('we push a nice form')
-                contentChain.push(
-                    <Form
-                        id={contentElement.id}
-                        key={contentElement.id}
-                        status={contentElement.status}
-                        statusMessage={contentElement.statusMessage}
-                        enclosure={contentElement.enclosure}
-                        fields={contentElement.items}
-                        actions={contentElement.actions}
-                        dispatch={dispatch}
-                    />
-                )
-                break;
-            case DisplayContentType.LIST:
-                contentChain.push(<div>LIST</div>)
-                break;
-            default:
-                contentChain.push(<div>DEFAULT</div>)
-                break;
-        }
-    });
-
+    try {
+        console.log('rendering for cell id: ' + cellId);
+        console.log(content)
+        let filteredElems = content.filter(displayElement => {
+            return typeof displayElement !== 'undefined' ? displayElement.cellidx === cellId : false
+        });
+        console.log('filtered elem size: ' + filteredElems.length);
+        filteredElems.map(contentElement => {
+            switch (contentElement.type) {
+                case DisplayContentType.FORM:
+                    contentChain.push(
+                        <Form
+                            id={contentElement.id}
+                            key={contentElement.id}
+                            status={contentElement.status}
+                            statusMessage={contentElement.statusMessage}
+                            enclosure={contentElement.enclosure}
+                            fields={contentElement.items}
+                            actions={contentElement.actions}
+                            dispatch={dispatch}
+                        />
+                    );
+                    break;
+                case DisplayContentType.LIST:
+                    contentChain.push(<DataList key={contentElement.id} content={contentElement}/>);
+                    break;
+                default:
+                    contentChain.push(<div>DEFAULT</div>);
+                    break;
+            }
+        });
+    } catch (e) {
+        console.error('Error while generating content: ' + e)
+    }
     return (<span key={contentChain.length}>{contentChain}</span>)
 };
 

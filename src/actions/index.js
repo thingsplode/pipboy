@@ -111,24 +111,23 @@ export const Actions = {
     },
     triggerAction(actionName, actionSource){
         return function (dispatch) {
-            dispatch(ContentActions.triggerAction(actionName, actionSource))
             switch (actionSource) {
                 case ActionSource.SYSTEM_MENU:
                     if (typeof Actions[actionName] === "function") {
                         dispatch(Actions[actionName]())
                     }
-                    break
-                case
-                ActionSource.MODULE:
+                    break;
+                case ActionSource.MODULE:
+                    dispatch(Actions.retreiveModule(actionName))
+                    break;
                 default:
+                    dispatch(ContentActions.triggerAction(actionName, actionSource))
                     break
             }
 
         }
     },
-    logout
-        ()
-    {
+    logout () {
         return function (dispatch, getState) {
             const {session} = getState()
             return fetch('/api/logout', {
@@ -146,8 +145,7 @@ export const Actions = {
         }
     }
     ,
-    retreiveFrameData()
-    {
+    retreiveFrameData() {
         return function (dispatch) {
             return fetch('/api/modules/', {
                 method: 'GET',
@@ -158,11 +156,33 @@ export const Actions = {
                 .then(FetchUtil.parseJSON)
                 .then(json => {
                     dispatch(ContentActions.loadModules(json))
+                    dispatch(Actions.retreiveModule(json.modules.activeId))
                 })
                 .catch(function (error) {
-                    console.error(error)
+                    console.error(error);
+                    dispatch(ContentActions.updateContent(Level.ERR, error.toString()))
+                })
+        }
+    },
+    retreiveModule(moduleId){
+        return function (dispatch) {
+            console.log('=========== retreiveModule: [' + moduleId + '] ==============')
+            return fetch('/api/modules/' + moduleId, {
+                method: 'GET',
+                headers: {
+                    'Accept': 'application/json'
+                }
+            }).then(FetchUtil.checkStatus)
+                .then(FetchUtil.parseJSON)
+                .then(json => {
+                    dispatch(ContentActions.addContent(json.displayContent))
+                })
+                .catch(function (error) {
+                    console.error(error);
                     dispatch(ContentActions.updateContent(Level.ERR, error.toString()))
                 })
         }
     }
+
+
 }
